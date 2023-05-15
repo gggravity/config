@@ -132,6 +132,8 @@
 ;; (setq smartparens-strict-mode f)
 (setq compilation-scroll-output t)
 (setq compile-command "cmake .; make && ./application")
+(setq compilation-ask-about-save nil) ;; save before compilation
+
 
 ;;disable splash screen and startup message
 (setq inhibit-startup-message t)
