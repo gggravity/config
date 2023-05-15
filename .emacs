@@ -39,6 +39,25 @@
 
 (eshell)
 
+
+
+(with-eval-after-load 'eglot
+  (add-to-list 'eglot-server-programs
+               '((c-mode c++-mode)
+                 . ("clangd-15"
+                    "-j=8"
+                    "--log=error"
+                    "--malloc-trim"
+                    "--background-index"
+                    "--clang-tidy"
+                    "--cross-file-rename"
+                    "--completion-style=detailed"
+                    "--pch-storage=memory"
+                    "--header-insertion=never"
+                    "--header-insertion-decorators=0"))))
+
+
+
 ;; Set term envitonment for compilation buffer
 (setq compilation-environment '("TERM=xterm-256color"))
 (defun my/advice-compilation-filter (f proc string)
@@ -70,6 +89,7 @@
 (define-key global-map (kbd "C-c o") 'ff-find-other-file)
 (define-key global-map (kbd "C-c f") 'eglot-code-action-quickfix)
 (define-key global-map (kbd "C-c r") 'eglot-rename)
+(define-key global-map (kbd "C-c i") 'eglot-inlay-hints-mode)
 (global-set-key (kbd "s-<left>")  'windmove-left)
 (global-set-key (kbd "s-<right>") 'windmove-right)
 (global-set-key (kbd "s-<up>")    'windmove-up)
@@ -136,6 +156,8 @@
 (add-hook 'racket-mode-hook #'racket-xp-mode)
 (add-hook 'after-init-hook 'global-company-mode)
 (add-hook 'auto-revert-tail-mode 'compilation-mode)
+(add-hook 'eglot-managed-mode-hook #'eglot-inlay-hints-mode)
+
 
 ;; Misc custom variables
 (custom-set-variables
@@ -236,7 +258,7 @@
  '(ispell-dictionary nil)
  '(linum-format " %7d ")
  '(package-selected-packages
-   '(yasnippet-snippets yasnippet powerline one-themes guru-mode racket-mode smartparens company rainbow-delimiters xterm-color helm super-save which-key))
+   '(eglot yasnippet-snippets yasnippet powerline one-themes guru-mode racket-mode smartparens company rainbow-delimiters xterm-color helm super-save which-key))
  '(show-paren-mode t)
  '(vertico-mode t)
  '(warning-suppress-log-types '((comp))))
