@@ -75,6 +75,12 @@
 (global-set-key (kbd "s-<up>")    'windmove-up)
 (global-set-key (kbd "s-<down>")  'windmove-down)
 
+;; mode for different files
+(add-to-list 'auto-mode-alist '("\\.h\\'" . c++-mode))
+
+;; follow symbolic links
+(setq vc-follow-symlinks t)
+
 ;; Treat all themes as safe
 (setq custom-safe-themes t)
 
@@ -83,7 +89,7 @@
 (which-key-mode)
 (yas-global-mode 1)
 (super-save-mode +1)
-;; (show-smartparens-global-mode +1)
+(show-smartparens-global-mode +1)
 ;; (turn-on-smartparens-strict-mode)
 (powerline-default-theme)
 ;; (global-aggressive-indent-mode -1)
