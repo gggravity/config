@@ -2,6 +2,7 @@
 (setq package-archives
       '(("gnu" . "http://elpa.gnu.org/packages/")
         ("marmalade" . "http://marmalade-repo.org/packages/")
+	("melpa-stable" . "https://stable.melpa.org/packages/")
         ("melpa" . "http://melpa.org/packages/")))
 
 ;; Init the package facility
@@ -18,7 +19,6 @@
 		    yasnippet
 		    yasnippet-snippets
 		    company
-		    which-key
 		    super-save
 		    guru-mode
 		    one-themes
@@ -31,6 +31,17 @@
   (unless (package-installed-p pkg)
     (package-install pkg)))
 
+;; markdown-mode
+(use-package markdown-mode
+  :ensure t
+  :mode ("README\\.md\\'" . gfm-mode)
+  :init (setq markdown-command "markdown"))
+
+;; manpage formating
+(require 'man)
+(set-face-attribute 'Man-overstrike nil :inherit font-lock-type-face :bold t)
+(set-face-attribute 'Man-underline nil :inherit font-lock-keyword-face :underline t)
+
 ;; Set custom require
 ;; (require 'smartparens-config)
 (require 'racket-xp)
@@ -38,8 +49,6 @@
 (require 'yasnippet)
 
 (eshell)
-
-
 
 (with-eval-after-load 'eglot
   (add-to-list 'eglot-server-programs
@@ -106,10 +115,9 @@
 
 ;; Custom configs
 (helm-mode 1)
-(which-key-mode)
 (yas-global-mode 1)
 (super-save-mode +1)
-(show-smartparens-global-mode +1)
+;; (showdl-smartparens-global-mode +1)
 ;; (turn-on-smartparens-strict-mode)
 (powerline-default-theme)
 ;; (global-aggressive-indent-mode -1)
@@ -260,7 +268,7 @@
  '(ispell-dictionary nil)
  '(linum-format " %7d ")
  '(package-selected-packages
-   '(eglot yasnippet-snippets yasnippet powerline one-themes guru-mode racket-mode smartparens company rainbow-delimiters xterm-color helm super-save which-key))
+   '(markdown-mode eglot yasnippet-snippets yasnippet powerline one-themes guru-mode racket-mode smartparens company rainbow-delimiters xterm-color helm super-save))
  '(show-paren-mode t)
  '(vertico-mode t)
  '(warning-suppress-log-types '((comp))))
